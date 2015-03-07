@@ -10,6 +10,7 @@ import java.awt.image.DataBufferInt;
 import javax.swing.JFrame;
 
 import com.kdi.dungeons.graphics.Screen;
+import com.kdi.dungeons.input.KeyInput;
 
 public class Game extends Canvas implements Runnable {
 
@@ -20,13 +21,13 @@ public class Game extends Canvas implements Runnable {
 	public static int scale = 3;
 
 	private Thread gameThread;
+	private JFrame frame;
+	private KeyInput keyInput;
 	private boolean running = false;
 	private Screen screen;
 
 	private BufferedImage image = new BufferedImage(width, height, BufferedImage.TYPE_INT_RGB);
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();
-
-	private JFrame frame;
 
 	public Game() {
 		Dimension size = new Dimension(width * scale, height * scale);
@@ -34,6 +35,9 @@ public class Game extends Canvas implements Runnable {
 
 		screen = new Screen(width, height);
 		frame = new JFrame();
+
+		keyInput = new KeyInput();
+		frame.addKeyListener(keyInput);
 	}
 
 	public synchronized void start() {
@@ -71,6 +75,7 @@ public class Game extends Canvas implements Runnable {
 				updates++;
 				delta--;
 			}
+
 			render();
 			frames++;
 
@@ -84,8 +89,14 @@ public class Game extends Canvas implements Runnable {
 		stop();
 	}
 
-	public void update() {
+	int x = 0, y = 0;
 
+	public void update() {
+		keyInput.update();
+		if (keyInput.up) y--;
+		if (keyInput.down) y++;
+		if (keyInput.left) x--;
+		if (keyInput.right) x++;
 	}
 
 	public void render() {
@@ -96,7 +107,7 @@ public class Game extends Canvas implements Runnable {
 		}
 
 		screen.clear();
-		screen.render();
+		screen.render(x, y);
 
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = screen.pixels[i];
