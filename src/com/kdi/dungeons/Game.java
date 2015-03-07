@@ -11,6 +11,8 @@ import javax.swing.JFrame;
 
 import com.kdi.dungeons.graphics.Screen;
 import com.kdi.dungeons.input.KeyInput;
+import com.kdi.dungeons.level.Level;
+import com.kdi.dungeons.level.RandomLevel;
 
 public class Game extends Canvas implements Runnable {
 
@@ -23,6 +25,7 @@ public class Game extends Canvas implements Runnable {
 	private Thread gameThread;
 	private JFrame frame;
 	private KeyInput keyInput;
+	private Level level;
 	private boolean running = false;
 	private Screen screen;
 
@@ -35,6 +38,7 @@ public class Game extends Canvas implements Runnable {
 
 		screen = new Screen(width, height);
 		frame = new JFrame();
+		level = new RandomLevel(64, 64);
 
 		keyInput = new KeyInput();
 		frame.addKeyListener(keyInput);
@@ -57,6 +61,7 @@ public class Game extends Canvas implements Runnable {
 
 	@Override
 	public void run() {
+		//requestFocus();
 		long lastTime = System.nanoTime();
 		long timer = System.currentTimeMillis();
 		final double nanoSeconds = 1000000000.0 / 60.0;
@@ -107,7 +112,7 @@ public class Game extends Canvas implements Runnable {
 		}
 
 		screen.clear();
-		screen.render(x, y);
+		level.render(x, y, screen);
 
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = screen.pixels[i];
