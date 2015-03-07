@@ -71,6 +71,7 @@ public class Game extends Canvas implements Runnable {
 			return;
 		}
 
+		screen.clear();
 		screen.render();
 
 		for (int i = 0; i < pixels.length; i++) {
@@ -78,11 +79,14 @@ public class Game extends Canvas implements Runnable {
 		}
 
 		Graphics graphics = bufferStrategy.getDrawGraphics();
-		// Draw all graphics between creating the graphics and disposing ------------>
+
+		// Draw all graphics between creating the graphics and disposing
+		// -------------------------------------------------------------------------->
 
 		graphics.drawImage(image, 0, 0, getWidth(), getHeight(), null);
 
 		// <--------------------------------------------------------------------------
+
 		graphics.dispose();
 		bufferStrategy.show();
 
