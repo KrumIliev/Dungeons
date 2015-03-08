@@ -44,18 +44,30 @@ public class Screen {
 		}
 	}
 
-	public void renderPlayer(int xPixel, int yPixel, Sprite sprite) {
+	public void renderPlayer(int xPixel, int yPixel, Sprite sprite, int flip) {
 		xPixel -= xOffset; // Adjusting the x position with the offset
 		yPixel -= yOffset; // Adjusting the y position with the offset
 		for (int y = 0; y < 32; y++) {
 			int yAbsolute = y + yPixel;
+			int ys = y;
+			// Checks if the image needs to be flipped vertically
+			if (flip == 2 || flip == 3) {
+				ys = 31 - y;
+			}
+
 			for (int x = 0; x < 32; x++) {
 				int xAbsolute = x + xPixel;
+				int xs = x;
+				// Checks if the image needs to be flipped horizontally
+				if (flip == 1 || flip == 3) {
+					xs = 31 - x;
+				}
+
 				if (xAbsolute < -32 || xAbsolute >= width || yAbsolute < 0 || yAbsolute >= height) break;
 				if (xAbsolute < 0) xAbsolute = 0;
 
 				// Renders all colors without 0xFFFF00FF /pink/ 
-				int color = sprite.pixels[x + y * 32];
+				int color = sprite.pixels[xs + ys * 32];
 				if (color != 0xFFFF00FF) pixels[xAbsolute + yAbsolute * width] = color;
 
 			}

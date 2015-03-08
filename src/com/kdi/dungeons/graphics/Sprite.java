@@ -12,9 +12,17 @@ public class Sprite {
 	public static Sprite voidSprite = new Sprite(16, 0x007ae1);
 
 	public static Sprite playerUp = new Sprite(32, 0, 7, SpriteSheet.tiles);
-	public static Sprite playerDown = new Sprite(32, 0, 4, SpriteSheet.tiles);
-	public static Sprite playerLeft = new Sprite(32, 0, 5, SpriteSheet.tiles);
-	public static Sprite playerRight = new Sprite(32, 0, 6, SpriteSheet.tiles);
+	public static Sprite playerDown = new Sprite(32, 0, 5, SpriteSheet.tiles);
+	public static Sprite playerSide = new Sprite(32, 0, 6, SpriteSheet.tiles);
+
+	public static Sprite playerUp1 = new Sprite(32, 1, 7, SpriteSheet.tiles);
+	public static Sprite playerUp2 = new Sprite(32, 2, 7, SpriteSheet.tiles);
+
+	public static Sprite playerDown1 = new Sprite(32, 1, 5, SpriteSheet.tiles);
+	public static Sprite playerDown2 = new Sprite(32, 2, 5, SpriteSheet.tiles);
+
+	public static Sprite playerSide1 = new Sprite(32, 1, 6, SpriteSheet.tiles);
+	public static Sprite playerSide2 = new Sprite(32, 2, 6, SpriteSheet.tiles);
 
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {
 		SIZE = size;
