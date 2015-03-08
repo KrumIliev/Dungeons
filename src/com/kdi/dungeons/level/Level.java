@@ -5,9 +5,15 @@ import com.kdi.dungeons.level.tile.Tile;
 
 public class Level {
 
-	protected int width, height;
-	protected int[] tiles;
+	protected int width, height; // Width and height of the level
+	protected int[] tiles; // All tiles
 
+	/**
+	 * Random level constructor
+	 * 
+	 * @param width Width of the level
+	 * @param height Height of the level
+	 */
 	public Level(int width, int height) {
 		this.width = width;
 		this.height = height;
@@ -15,16 +21,36 @@ public class Level {
 		generateLevel();
 	}
 
+	/**
+	 * Level from file constructor
+	 * 
+	 * @param path Level file path
+	 */
 	public Level(String path) {
 		loadLevel(path);
 	}
 
+	/**
+	 * Generates random level
+	 */
 	protected void generateLevel() {}
 
+	/**
+	 * Loads the level from specific file
+	 * 
+	 * @param path Level file path
+	 */
 	private void loadLevel(String path) {}
 
 	public void update() {}
 
+	/**
+	 * Renders the level
+	 * 
+	 * @param xScroll The x position to move the map
+	 * @param yScroll The y position to move the map
+	 * @param screen The game {@link Screen}
+	 */
 	public void render(int xScroll, int yScroll, Screen screen) {
 		screen.setOffset(xScroll, yScroll);
 
@@ -42,6 +68,9 @@ public class Level {
 		}
 	}
 
+	/**
+	 * Retrieves {@link Tile} for specific position
+	 */
 	public Tile getTile(int x, int y) {
 		if (x < 0 || y < 0 || x >= width || y >= height) return Tile.voidTile; // Fixes ArrayIndexOutOfBoundsExeption
 		if (tiles[x + y * width] == 0) return Tile.grass;

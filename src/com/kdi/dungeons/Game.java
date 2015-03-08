@@ -9,6 +9,7 @@ import java.awt.image.DataBufferInt;
 
 import javax.swing.JFrame;
 
+import com.kdi.dungeons.entity.mob.Player;
 import com.kdi.dungeons.graphics.Screen;
 import com.kdi.dungeons.input.KeyInput;
 import com.kdi.dungeons.level.Level;
@@ -26,6 +27,7 @@ public class Game extends Canvas implements Runnable {
 	private JFrame frame;
 	private KeyInput keyInput;
 	private Level level;
+	private Player player;
 	private boolean running = false;
 	private Screen screen;
 
@@ -39,8 +41,8 @@ public class Game extends Canvas implements Runnable {
 		screen = new Screen(width, height);
 		frame = new JFrame();
 		level = new RandomLevel(64, 64);
-
 		keyInput = new KeyInput();
+		player = new Player(keyInput);
 		frame.addKeyListener(keyInput);
 	}
 
@@ -61,7 +63,6 @@ public class Game extends Canvas implements Runnable {
 
 	@Override
 	public void run() {
-		//requestFocus();
 		long lastTime = System.nanoTime();
 		long timer = System.currentTimeMillis();
 		final double nanoSeconds = 1000000000.0 / 60.0;
@@ -69,6 +70,7 @@ public class Game extends Canvas implements Runnable {
 		int frames = 0;
 		int updates = 0;
 
+		frame.requestFocus();
 		while (running) {
 
 			long currentTime = System.nanoTime();
@@ -94,14 +96,9 @@ public class Game extends Canvas implements Runnable {
 		stop();
 	}
 
-	int x = 0, y = 0;
-
 	public void update() {
 		keyInput.update();
-		if (keyInput.up) y--;
-		if (keyInput.down) y++;
-		if (keyInput.left) x--;
-		if (keyInput.right) x++;
+		player.update();
 	}
 
 	public void render() {
@@ -112,7 +109,11 @@ public class Game extends Canvas implements Runnable {
 		}
 
 		screen.clear();
-		level.render(x, y, screen);
+
+		int xScroll = player.x - screen.width / 2;
+		int yScroll = player.y - screen.height / 2;
+		level.render(xScroll, yScroll, screen);
+		player.render(screen);
 
 		for (int i = 0; i < pixels.length; i++) {
 			pixels[i] = screen.pixels[i];
