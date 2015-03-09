@@ -1,6 +1,8 @@
 package com.kdi.dungeons.entity.mob;
 
 import com.kdi.dungeons.entity.Entity;
+import com.kdi.dungeons.entity.projectile.Projectile;
+import com.kdi.dungeons.entity.projectile.WizardProjectile;
 import com.kdi.dungeons.graphics.Sprite;
 
 public abstract class Mob extends Entity {
@@ -72,4 +74,8 @@ public abstract class Mob extends Entity {
 		return collision;
 	}
 
+	protected void shoot(int x, int y, double direction) {
+		Projectile projectile = new WizardProjectile(x, y, direction);
+		level.addProjectile(projectile);
+	}
 }

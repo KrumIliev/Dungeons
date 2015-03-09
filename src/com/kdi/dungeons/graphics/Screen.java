@@ -2,7 +2,7 @@ package com.kdi.dungeons.graphics;
 
 import java.util.Random;
 
-import com.kdi.dungeons.level.tile.Tile;
+import com.kdi.dungeons.libs.Reference;
 
 public class Screen {
 
@@ -30,16 +30,19 @@ public class Screen {
 			pixels[i] = 0;
 	}
 
-	public void renderTile(int xPixel, int yPixel, Tile tile) {
+	public void renderTile(int xPixel, int yPixel, Sprite sprite) {
 		xPixel -= xOffset; // Adjusting the x position with the offset
 		yPixel -= yOffset; // Adjusting the y position with the offset
-		for (int y = 0; y < tile.sprite.SIZE; y++) {
+		for (int y = 0; y < sprite.SIZE; y++) {
 			int yAbsolute = y + yPixel;
-			for (int x = 0; x < tile.sprite.SIZE; x++) {
+			for (int x = 0; x < sprite.SIZE; x++) {
 				int xAbsolute = x + xPixel;
-				if (xAbsolute < -tile.sprite.SIZE || xAbsolute >= width || yAbsolute < 0 || yAbsolute >= height) break;
+				if (xAbsolute < -sprite.SIZE || xAbsolute >= width || yAbsolute < 0 || yAbsolute >= height) break;
 				if (xAbsolute < 0) xAbsolute = 0;
-				pixels[xAbsolute + yAbsolute * width] = tile.sprite.pixels[x + y * tile.sprite.SIZE];
+
+				// Renders all colors without 0xFFFF00FF /pink/ 
+				int color = sprite.pixels[x + y * sprite.SIZE];
+				if (color != Reference.COLOR_TRANSPARENCY) pixels[xAbsolute + yAbsolute * width] = color;
 			}
 		}
 	}
@@ -68,7 +71,7 @@ public class Screen {
 
 				// Renders all colors without 0xFFFF00FF /pink/ 
 				int color = sprite.pixels[xs + ys * 32];
-				if (color != 0xFFFF00FF) pixels[xAbsolute + yAbsolute * width] = color;
+				if (color != Reference.COLOR_TRANSPARENCY) pixels[xAbsolute + yAbsolute * width] = color;
 
 			}
 		}

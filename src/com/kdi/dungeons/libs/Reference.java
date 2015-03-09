@@ -7,6 +7,7 @@ public class Reference {
 	/**
 	 * Tile color codes
 	 */
+	public static final int COLOR_TRANSPARENCY = 0xFFFF00FF; // this color is used for transparency
 	public static final int COLOR_PLAYER_SPOWN = 0xff00ffff;
 	public static final int COLOR_GRASS = 0xff00ff00;
 	public static final int COLOR_FLOWER_GREEN = 0xff00c800;

@@ -23,9 +23,9 @@ public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 
-	public static int width = 300;
-	public static int height = width / 4 * 3;
-	public static int scale = 3;
+	private static int width = 300;
+	private static int height = width / 4 * 3;
+	private static int scale = 3;
 
 	private Thread gameThread;
 	private JFrame frame;
@@ -54,6 +54,14 @@ public class Game extends Canvas implements Runnable {
 		addKeyListener(keyInput);
 		addMouseListener(mouse);
 		addMouseMotionListener(mouse);
+	}
+
+	public static int getWindowWidth() {
+		return width * scale;
+	}
+
+	public static int getWindowHeight() {
+		return height * scale;
 	}
 
 	public synchronized void start() {
@@ -109,6 +117,7 @@ public class Game extends Canvas implements Runnable {
 	public void update() {
 		keyInput.update();
 		player.update();
+		level.update();
 	}
 
 	public void render() {

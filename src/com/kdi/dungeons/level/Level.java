@@ -1,5 +1,10 @@
 package com.kdi.dungeons.level;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.kdi.dungeons.entity.Entity;
+import com.kdi.dungeons.entity.projectile.Projectile;
 import com.kdi.dungeons.graphics.Screen;
 import com.kdi.dungeons.level.tile.Tile;
 import com.kdi.dungeons.libs.Reference;
@@ -9,6 +14,9 @@ public class Level {
 	protected int width, height; // Width and height of the level
 	protected int[] tilesInt; // All tiles
 	protected int[] tiles;
+
+	private List<Entity> entities = new ArrayList<Entity>();
+	private List<Projectile> projectiles = new ArrayList<Projectile>();
 
 	/**
 	 * Random level constructor
@@ -42,7 +50,12 @@ public class Level {
 	 */
 	protected void loadLevel(String path) {}
 
-	public void update() {}
+	public void update() {
+		for (int i = 0; i < entities.size(); i++)
+			entities.get(i).update();
+		for (int i = 0; i < projectiles.size(); i++)
+			projectiles.get(i).update();
+	}
 
 	/**
 	 * Renders the level
@@ -62,10 +75,41 @@ public class Level {
 
 		// Render only pixel between the corner pins
 		for (int y = y0; y < y1; y++) {
-			for (int x = x0; x < x1; x++) {
+			for (int x = x0; x < x1; x++)
 				getTile(x, y).render(x, y, screen);
-			}
 		}
+
+		for (int i = 0; i < entities.size(); i++)
+			entities.get(i).render(screen);
+		for (int i = 0; i < projectiles.size(); i++)
+			projectiles.get(i).render(screen);
+	}
+
+	public void add(Entity entity) {
+		entities.add(entity);
+	}
+
+	public void addProjectile(Projectile projectile) {
+		projectile.setLevel(this);
+		projectiles.add(projectile);
+	}
+
+	public List<Projectile> getProjectiles() {
+		return projectiles;
+	}
+
+	/**
+	 * Checks for collision
+	 */
+	public boolean tileCollision(double x, double y, double xm, double ym, int size) {
+		boolean collision = false;
+		for (int c = 0; c < 4; c++) {
+			int xt = (((int) x + (int) xm) + c % 2 * size / 10 - 2) / 16;
+			int yt = (((int) y + (int) ym) + c / 2 * size / 12 + 8) / 16;
+			if (getTile(xt, yt).solid()) collision = true;
+		}
+
+		return collision;
 	}
 
 	/**

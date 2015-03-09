@@ -24,7 +24,7 @@ public class Sprite {
 	public static Sprite groundRocksBlue = new Sprite(16, 1, 0, SpriteSheet.tiles);
 	public static Sprite groundRocksYellow = new Sprite(16, 2, 0, SpriteSheet.tiles);
 	public static Sprite groundRocksPink = new Sprite(16, 3, 0, SpriteSheet.tiles);
-	
+
 	public static Sprite bricks = new Sprite(16, 5, 0, SpriteSheet.tiles);
 
 	public static Sprite playerUp = new Sprite(32, 0, 7, SpriteSheet.tiles);
@@ -38,6 +38,8 @@ public class Sprite {
 	public static Sprite playerSide = new Sprite(32, 0, 6, SpriteSheet.tiles);
 	public static Sprite playerSide1 = new Sprite(32, 1, 6, SpriteSheet.tiles);
 	public static Sprite playerSide2 = new Sprite(32, 2, 6, SpriteSheet.tiles);
+
+	public static Sprite projectileWizard = new Sprite(16, 0, 6, SpriteSheet.tiles);
 
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {
 		SIZE = size;
