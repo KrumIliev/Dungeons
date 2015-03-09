@@ -23,6 +23,15 @@ public abstract class Mob extends Entity {
 	 */
 	public void move(int xm, int ym) {
 		/**
+		 * Separates the x and y movements so the player can slide on the walls
+		 */
+		if (xm != 0 && ym != 0) {
+			move(xm, 0);
+			move(0, ym);
+			return;
+		}
+
+		/**
 		 * Sets the direction
 		 */
 		if (xm > 0) direction = DIRECTION_RIGHT;
@@ -33,7 +42,7 @@ public abstract class Mob extends Entity {
 		/**
 		 * Checks for collision and there is no collision move
 		 */
-		if (!collision()) {
+		if (!collision(xm, ym)) {
 			x += xm;
 			y += ym;
 		}
@@ -52,8 +61,15 @@ public abstract class Mob extends Entity {
 	/**
 	 * Checks for collision
 	 */
-	private boolean collision() {
-		return false;
+	private boolean collision(int xm, int ym) {
+		boolean collision = false;
+		for (int c = 0; c < 4; c++) {
+			int xt = ((x + xm) + c % 2 * 12 - 7) / 16;
+			int yt = ((y + ym) + c / 2 * 15 - 1) / 16;
+			if (level.getTile(xt, yt).solid()) collision = true;
+		}
+
+		return collision;
 	}
 
 }

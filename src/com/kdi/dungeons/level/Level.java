@@ -2,11 +2,13 @@ package com.kdi.dungeons.level;
 
 import com.kdi.dungeons.graphics.Screen;
 import com.kdi.dungeons.level.tile.Tile;
+import com.kdi.dungeons.libs.Reference;
 
 public class Level {
 
 	protected int width, height; // Width and height of the level
-	protected int[] tiles; // All tiles
+	protected int[] tilesInt; // All tiles
+	protected int[] tiles;
 
 	/**
 	 * Random level constructor
@@ -17,7 +19,7 @@ public class Level {
 	public Level(int width, int height) {
 		this.width = width;
 		this.height = height;
-		tiles = new int[width * height];
+		tilesInt = new int[width * height];
 		generateLevel();
 	}
 
@@ -28,11 +30,9 @@ public class Level {
 	 */
 	public Level(String path) {
 		loadLevel(path);
+		generateLevel();
 	}
 
-	/**
-	 * Generates random level
-	 */
 	protected void generateLevel() {}
 
 	/**
@@ -40,7 +40,7 @@ public class Level {
 	 * 
 	 * @param path Level file path
 	 */
-	private void loadLevel(String path) {}
+	protected void loadLevel(String path) {}
 
 	public void update() {}
 
@@ -73,7 +73,18 @@ public class Level {
 	 */
 	public Tile getTile(int x, int y) {
 		if (x < 0 || y < 0 || x >= width || y >= height) return Tile.voidTile; // Fixes ArrayIndexOutOfBoundsExeption
-		if (tiles[x + y * width] == 0) return Tile.grass;
+		if (tiles[x + y * width] == Reference.COLOR_GRASS) return Tile.grass;
+		if (tiles[x + y * width] == Reference.COLOR_FLOWER_GREEN) return Tile.flowerGreen;
+		if (tiles[x + y * width] == Reference.COLOR_FLOWER_MUSH) return Tile.flowerMush;
+		if (tiles[x + y * width] == Reference.COLOR_FLOWER_RED) return Tile.flowerRed;
+		if (tiles[x + y * width] == Reference.COLOR_FLOWER_YELLOW) return Tile.flowerYellow;
+		if (tiles[x + y * width] == Reference.COLOR_BRICKS) return Tile.bricks;
+		if (tiles[x + y * width] == Reference.COLOR_GROUND_BLUE) return Tile.groundRocksBlue;
+		if (tiles[x + y * width] == Reference.COLOR_GROUND_PINK) return Tile.groundRocksPink;
+		if (tiles[x + y * width] == Reference.COLOR_GROUND_YELLOW) return Tile.groundRocksYellow;
+		if (tiles[x + y * width] == Reference.COLOR_BLOCK_BLUE) return Tile.blockBlue;
+		if (tiles[x + y * width] == Reference.COLOR_BLOCK_GRAY) return Tile.blockGray;
+		if (tiles[x + y * width] == Reference.COLOR_BLOCK_YELLOW) return Tile.blockGold;
 		return Tile.voidTile;
 	}
 

@@ -8,19 +8,34 @@ public class Sprite {
 	public final int SIZE;
 	public int[] pixels;
 
-	public static Sprite grass = new Sprite(16, 0, 0, SpriteSheet.tiles);
 	public static Sprite voidSprite = new Sprite(16, 0x007ae1);
 
-	public static Sprite playerUp = new Sprite(32, 0, 7, SpriteSheet.tiles);
-	public static Sprite playerDown = new Sprite(32, 0, 5, SpriteSheet.tiles);
-	public static Sprite playerSide = new Sprite(32, 0, 6, SpriteSheet.tiles);
+	public static Sprite grass = new Sprite(16, 0, 0, SpriteSheet.tiles);
 
+	public static Sprite flowerGreen = new Sprite(16, 0, 4, SpriteSheet.tiles);
+	public static Sprite flowerRed = new Sprite(16, 1, 4, SpriteSheet.tiles);
+	public static Sprite flowerYellow = new Sprite(16, 2, 4, SpriteSheet.tiles);
+	public static Sprite flowerMush = new Sprite(16, 3, 4, SpriteSheet.tiles);
+
+	public static Sprite blockBlue = new Sprite(16, 0, 1, SpriteSheet.tiles);
+	public static Sprite blockGold = new Sprite(16, 1, 1, SpriteSheet.tiles);
+	public static Sprite blockGray = new Sprite(16, 2, 1, SpriteSheet.tiles);
+
+	public static Sprite groundRocksBlue = new Sprite(16, 1, 0, SpriteSheet.tiles);
+	public static Sprite groundRocksYellow = new Sprite(16, 2, 0, SpriteSheet.tiles);
+	public static Sprite groundRocksPink = new Sprite(16, 3, 0, SpriteSheet.tiles);
+	
+	public static Sprite bricks = new Sprite(16, 5, 0, SpriteSheet.tiles);
+
+	public static Sprite playerUp = new Sprite(32, 0, 7, SpriteSheet.tiles);
 	public static Sprite playerUp1 = new Sprite(32, 1, 7, SpriteSheet.tiles);
 	public static Sprite playerUp2 = new Sprite(32, 2, 7, SpriteSheet.tiles);
 
+	public static Sprite playerDown = new Sprite(32, 0, 5, SpriteSheet.tiles);
 	public static Sprite playerDown1 = new Sprite(32, 1, 5, SpriteSheet.tiles);
 	public static Sprite playerDown2 = new Sprite(32, 2, 5, SpriteSheet.tiles);
 
+	public static Sprite playerSide = new Sprite(32, 0, 6, SpriteSheet.tiles);
 	public static Sprite playerSide1 = new Sprite(32, 1, 6, SpriteSheet.tiles);
 	public static Sprite playerSide2 = new Sprite(32, 2, 6, SpriteSheet.tiles);
 

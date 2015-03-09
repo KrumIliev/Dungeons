@@ -36,4 +36,8 @@ public abstract class Entity {
 		return removed;
 	}
 
+	public void setLevel(Level level) {
+		this.level = level;
+	}
+
 }

@@ -13,7 +13,8 @@ import com.kdi.dungeons.entity.mob.Player;
 import com.kdi.dungeons.graphics.Screen;
 import com.kdi.dungeons.input.KeyInput;
 import com.kdi.dungeons.level.Level;
-import com.kdi.dungeons.level.RandomLevel;
+import com.kdi.dungeons.level.SpawnLevel;
+import com.kdi.dungeons.level.TileCoordinate;
 
 public class Game extends Canvas implements Runnable {
 
@@ -40,9 +41,11 @@ public class Game extends Canvas implements Runnable {
 
 		screen = new Screen(width, height);
 		frame = new JFrame();
-		level = new RandomLevel(64, 64);
+		level = new SpawnLevel("/textures/level.png");
 		keyInput = new KeyInput();
-		player = new Player(keyInput);
+		TileCoordinate playerSpawn = new TileCoordinate(38, 47);
+		player = new Player(playerSpawn.getX(), playerSpawn.getY(), keyInput);
+		player.setLevel(level);
 		frame.addKeyListener(keyInput);
 	}
 
