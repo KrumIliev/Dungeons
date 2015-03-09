@@ -1,7 +1,9 @@
 package com.kdi.dungeons;
 
 import java.awt.Canvas;
+import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
@@ -12,6 +14,7 @@ import javax.swing.JFrame;
 import com.kdi.dungeons.entity.mob.Player;
 import com.kdi.dungeons.graphics.Screen;
 import com.kdi.dungeons.input.KeyInput;
+import com.kdi.dungeons.input.Mouse;
 import com.kdi.dungeons.level.Level;
 import com.kdi.dungeons.level.SpawnLevel;
 import com.kdi.dungeons.level.TileCoordinate;
@@ -46,7 +49,11 @@ public class Game extends Canvas implements Runnable {
 		TileCoordinate playerSpawn = new TileCoordinate(38, 47);
 		player = new Player(playerSpawn.getX(), playerSpawn.getY(), keyInput);
 		player.setLevel(level);
-		frame.addKeyListener(keyInput);
+
+		Mouse mouse = new Mouse();
+		addKeyListener(keyInput);
+		addMouseListener(mouse);
+		addMouseMotionListener(mouse);
 	}
 
 	public synchronized void start() {
@@ -73,7 +80,7 @@ public class Game extends Canvas implements Runnable {
 		int frames = 0;
 		int updates = 0;
 
-		frame.requestFocus();
+		requestFocus();
 		while (running) {
 
 			long currentTime = System.nanoTime();
@@ -128,6 +135,10 @@ public class Game extends Canvas implements Runnable {
 		// -------------------------------------------------------------------------->
 
 		graphics.drawImage(image, 0, 0, getWidth(), getHeight(), null);
+		graphics.setColor(Color.WHITE);
+		graphics.setFont(new Font("Verdana", 0, 50));
+		graphics.fillRect(Mouse.getX() - 10, Mouse.getY() - 10, 20, 20);
+		graphics.drawString("Button: " + Mouse.getB(), 80, 80);
 
 		// <--------------------------------------------------------------------------
 
