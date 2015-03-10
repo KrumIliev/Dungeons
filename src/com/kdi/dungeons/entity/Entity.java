@@ -11,7 +11,7 @@ public abstract class Entity {
 	private boolean removed = false; // If the entity is removed from the screen 
 
 	protected Level level; // The level the entity resides in
-	protected Random random; // TODO Used for AI 
+	protected Random random = new Random(); // TODO Used for AI 
 
 	public void update() {}
 

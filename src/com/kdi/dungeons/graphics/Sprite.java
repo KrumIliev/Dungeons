@@ -5,11 +5,15 @@ public class Sprite {
 	private int x, y;
 	private SpriteSheet sheet;
 
-	public final int SIZE;
+	public final int SIZE; // TODO remove 
+	private int width, height;
 	public int[] pixels;
 
 	public static Sprite voidSprite = new Sprite(16, 0x007ae1);
 
+	/**
+	 * Level sprites
+	 */
 	public static Sprite grass = new Sprite(16, 0, 0, SpriteSheet.tiles);
 
 	public static Sprite flowerGreen = new Sprite(16, 0, 4, SpriteSheet.tiles);
@@ -27,6 +31,9 @@ public class Sprite {
 
 	public static Sprite bricks = new Sprite(16, 5, 0, SpriteSheet.tiles);
 
+	/**
+	 * Player sprites
+	 */
 	public static Sprite playerUp = new Sprite(32, 0, 7, SpriteSheet.tiles);
 	public static Sprite playerUp1 = new Sprite(32, 1, 7, SpriteSheet.tiles);
 	public static Sprite playerUp2 = new Sprite(32, 2, 7, SpriteSheet.tiles);
@@ -39,10 +46,20 @@ public class Sprite {
 	public static Sprite playerSide1 = new Sprite(32, 1, 6, SpriteSheet.tiles);
 	public static Sprite playerSide2 = new Sprite(32, 2, 6, SpriteSheet.tiles);
 
+	/**
+	 * Projectile sprites
+	 */
 	public static Sprite projectileWizard = new Sprite(16, 0, 6, SpriteSheet.tiles);
+
+	/**
+	 * Particle sprites
+	 */
+	public static Sprite particleNormal = new Sprite(3, 0xAAAAAA); //TODO change color
 
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {
 		SIZE = size;
+		this.width = size;
+		this.height = size;
 		pixels = new int[SIZE * SIZE];
 		this.x = x * SIZE;
 		this.y = y * SIZE;
@@ -50,16 +67,34 @@ public class Sprite {
 		load();
 	}
 
+	public Sprite(int width, int height, int color) {
+		this.width = width;
+		this.height = height;
+		SIZE = -1; // TODO check implementation
+		pixels = new int[width * height];
+		setColor(color);
+	}
+
 	public Sprite(int size, int color) {
 		SIZE = size;
+		this.width = size;
+		this.height = size;
 		pixels = new int[SIZE * SIZE];
 		setColor(color);
 	}
 
 	private void setColor(int color) {
-		for (int i = 0; i < SIZE * SIZE; i++) {
+		for (int i = 0; i < width * height; i++) {
 			pixels[i] = color;
 		}
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
 	}
 
 	private void load() {

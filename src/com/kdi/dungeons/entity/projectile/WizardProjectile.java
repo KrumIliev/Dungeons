@@ -1,5 +1,6 @@
 package com.kdi.dungeons.entity.projectile;
 
+import com.kdi.dungeons.entity.spawner.ParticleSpawner;
 import com.kdi.dungeons.graphics.Screen;
 import com.kdi.dungeons.graphics.Sprite;
 
@@ -21,7 +22,10 @@ public class WizardProjectile extends Projectile {
 
 	@Override
 	public void update() {
-		if (level.tileCollision(x, y, xNew, yNew, 13)) remove();
+		if (level.tileCollision((int) (x + xNew), (int) (y + yNew), 7, 4, 4)) {
+			level.add(new ParticleSpawner((int) x, (int) y, 50, 50, level));
+			remove();
+		}
 		move();
 	}
 
@@ -44,7 +48,7 @@ public class WizardProjectile extends Projectile {
 
 	@Override
 	public void render(Screen screen) {
-		screen.renderTile((int) x - 10, (int) y, sprite);
+		screen.renderTile((int) x, (int) y, sprite);
 	}
 
 }

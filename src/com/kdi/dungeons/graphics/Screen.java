@@ -30,6 +30,22 @@ public class Screen {
 			pixels[i] = 0;
 	}
 
+	public void renderSprite(int xPosition, int yPosition, Sprite sprite, boolean fixed) {
+		if (fixed) {
+			xPosition -= xOffset; // Adjusting the x position with the offset
+			yPosition -= yOffset; // Adjusting the y position with the offset
+		}
+
+		for (int y = 0; y < sprite.getHeight(); y++) {
+			int yAbsolute = y + yPosition;
+			for (int x = 0; x < sprite.getWidth(); x++) {
+				int xAbsolute = x + xPosition;
+				if (xAbsolute < 0 || xAbsolute >= width || yAbsolute < 0 || yAbsolute >= height) continue; // If exceeds the bounds of the screen don't render it
+				pixels[xAbsolute + yAbsolute * width] = sprite.pixels[x + y * sprite.getWidth()];
+			}
+		}
+	}
+
 	public void renderTile(int xPixel, int yPixel, Sprite sprite) {
 		xPixel -= xOffset; // Adjusting the x position with the offset
 		yPixel -= yOffset; // Adjusting the y position with the offset

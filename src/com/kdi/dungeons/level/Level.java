@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.kdi.dungeons.entity.Entity;
+import com.kdi.dungeons.entity.particle.Particle;
 import com.kdi.dungeons.entity.projectile.Projectile;
 import com.kdi.dungeons.graphics.Screen;
 import com.kdi.dungeons.level.tile.Tile;
@@ -17,6 +18,7 @@ public class Level {
 
 	private List<Entity> entities = new ArrayList<Entity>();
 	private List<Projectile> projectiles = new ArrayList<Projectile>();
+	private List<Particle> particles = new ArrayList<Particle>();
 
 	/**
 	 * Random level constructor
@@ -55,6 +57,18 @@ public class Level {
 			entities.get(i).update();
 		for (int i = 0; i < projectiles.size(); i++)
 			projectiles.get(i).update();
+		for (int i = 0; i < particles.size(); i++)
+			particles.get(i).update();
+		remove();
+	}
+
+	private void remove() {
+		for (int i = 0; i < entities.size(); i++)
+			if (entities.get(i).isRemoved()) entities.remove(i);
+		for (int i = 0; i < projectiles.size(); i++)
+			if (projectiles.get(i).isRemoved()) projectiles.remove(i);
+		for (int i = 0; i < particles.size(); i++)
+			if (particles.get(i).isRemoved()) particles.remove(i);
 	}
 
 	/**
@@ -83,15 +97,22 @@ public class Level {
 			entities.get(i).render(screen);
 		for (int i = 0; i < projectiles.size(); i++)
 			projectiles.get(i).render(screen);
+		for (int i = 0; i < particles.size(); i++)
+			particles.get(i).render(screen);
 	}
 
 	public void add(Entity entity) {
-		entities.add(entity);
-	}
+		entity.setLevel(this);
 
-	public void addProjectile(Projectile projectile) {
-		projectile.setLevel(this);
-		projectiles.add(projectile);
+		if (entity instanceof Particle) {
+			particles.add((Particle) entity);
+
+		} else if (entity instanceof Projectile) {
+			projectiles.add((Projectile) entity);
+
+		} else {
+			entities.add(entity);
+		}
 	}
 
 	public List<Projectile> getProjectiles() {
@@ -101,11 +122,11 @@ public class Level {
 	/**
 	 * Checks for collision
 	 */
-	public boolean tileCollision(double x, double y, double xm, double ym, int size) {
+	public boolean tileCollision(int x, int y, int size, int xOffset, int yOffset) {
 		boolean collision = false;
 		for (int c = 0; c < 4; c++) {
-			int xt = (((int) x + (int) xm) + c % 2 * size / 10 - 2) / 16;
-			int yt = (((int) y + (int) ym) + c / 2 * size / 12 + 8) / 16;
+			int xt = (x - c % 2 * size + xOffset) >> 4;
+			int yt = (y - c / 2 * size + yOffset) >> 4;
 			if (getTile(xt, yt).solid()) collision = true;
 		}
 
