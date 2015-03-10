@@ -53,7 +53,13 @@ public class Sprite {
 	/**
 	 * Particle sprites
 	 */
-	public static Sprite particleNormal = new Sprite(3, 3, 0xAAAAAA); //TODO change color
+	public static Sprite particleNormal = new Sprite(3, 3, 0xAAAAAA); //
+
+	protected Sprite(int width, int height, SpriteSheet sheet) {
+		this.width = width;
+		this.height = height;
+		this.sheet = sheet;
+	}
 
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {
 		this.width = size;
