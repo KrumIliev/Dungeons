@@ -3,7 +3,7 @@ package com.kdi.dungeons.graphics;
 public class Sprite {
 
 	private int x, y;
-	private SpriteSheet sheet;
+	protected SpriteSheet sheet;
 
 	private int width, height;
 	public int[] pixels;
@@ -76,6 +76,12 @@ public class Sprite {
 		this.height = height;
 		pixels = new int[width * height];
 		setColor(color);
+	}
+
+	public Sprite(int[] pixels, int width, int height) {
+		this.width = width;
+		this.height = height;
+		this.pixels = pixels;
 	}
 
 	private void setColor(int color) {

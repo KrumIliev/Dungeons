@@ -13,6 +13,55 @@ public class SpriteSheet {
 	public int[] pixels;
 
 	public static SpriteSheet tiles = new SpriteSheet("/textures/spritesheet.png", 256, 256);
+	public static SpriteSheet player = new SpriteSheet("/textures/hero.png", 128, 96);
+	public static SpriteSheet playerDown = new SpriteSheet(player, 0, 0, 1, 3, 32);
+	public static SpriteSheet playerUp = new SpriteSheet(player, 1, 0, 1, 3, 32);
+	public static SpriteSheet playerLeft = new SpriteSheet(player, 3, 0, 1, 3, 32);
+	public static SpriteSheet playerRight = new SpriteSheet(player, 2, 0, 1, 3, 32);
+
+	private Sprite[] sprites;
+
+	/**
+	 * This constructor extracts part of an spritesheet. /sub spritesheet/
+	 */
+	public SpriteSheet(SpriteSheet sheet, int x, int y, int width, int height, int spriteSize) {
+		int xx = x * spriteSize;
+		int yy = y * spriteSize;
+		int w = width * spriteSize;
+		int h = height * spriteSize;
+
+		this.width = w;
+		this.height = h;
+		pixels = new int[w * h];
+
+		for (int y0 = 0; y0 < h; y0++) {
+			int yPsition = yy + y0;
+			for (int x0 = 0; x0 < w; x0++) {
+				int xPsition = xx + x0;
+				pixels[x0 + y0 * w] = sheet.pixels[xPsition + yPsition * sheet.getWidth()];
+			}
+		}
+
+		int frame = 0;
+		sprites = new Sprite[width * height];
+		// First go through all tiles 
+		for (int ya = 0; ya < height; ya++) {
+			for (int xa = 0; xa < width; xa++) {
+				int spritePixels[] = new int[spriteSize * spriteSize];
+				// On every tile go through its pixels 
+				for (int y0 = 0; y0 < spriteSize; y0++) {
+					for (int x0 = 0; x0 < spriteSize; x0++) {
+						// Extract current pixel information to spritePixels[]
+						spritePixels[x0 + y0 * spriteSize] = pixels[(x0 + xa * spriteSize) + (y0 + ya * spriteSize) * spriteSize];
+
+					}
+				}
+				Sprite sprite = new Sprite(spritePixels, spriteSize, spriteSize);
+				sprites[frame++] = sprite;
+			}
+		}
+
+	}
 
 	public SpriteSheet(String path, int width, int height) {
 		this.path = path;
@@ -28,6 +77,10 @@ public class SpriteSheet {
 
 	public int getHeight() {
 		return height;
+	}
+
+	public Sprite[] getSprites() {
+		return sprites;
 	}
 
 	private void load() {

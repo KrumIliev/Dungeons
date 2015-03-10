@@ -30,6 +30,25 @@ public class Screen {
 			pixels[i] = 0;
 	}
 
+	/**
+	 * Used for debugging
+	 */
+	public void renderSpriteSheet(int xPosition, int yPosition, SpriteSheet sheet, boolean fixed) {
+		if (fixed) {
+			xPosition -= xOffset; // Adjusting the x position with the offset
+			yPosition -= yOffset; // Adjusting the y position with the offset
+		}
+
+		for (int y = 0; y < sheet.getHeight(); y++) {
+			int yAbsolute = y + yPosition;
+			for (int x = 0; x < sheet.getWidth(); x++) {
+				int xAbsolute = x + xPosition;
+				if (xAbsolute < 0 || xAbsolute >= width || yAbsolute < 0 || yAbsolute >= height) continue; // If exceeds the bounds of the screen don't render it
+				pixels[xAbsolute + yAbsolute * width] = sheet.pixels[x + y * sheet.getWidth()];
+			}
+		}
+	}
+
 	public void renderSprite(int xPosition, int yPosition, Sprite sprite, boolean fixed) {
 		if (fixed) {
 			xPosition -= xOffset; // Adjusting the x position with the offset
@@ -63,6 +82,7 @@ public class Screen {
 		}
 	}
 
+	// TODO remove flip
 	public void renderPlayer(int xPixel, int yPixel, Sprite sprite, int flip) {
 		xPixel -= xOffset; // Adjusting the x position with the offset
 		yPixel -= yOffset; // Adjusting the y position with the offset

@@ -5,8 +5,10 @@ import java.awt.event.MouseEvent;
 import com.kdi.dungeons.Game;
 import com.kdi.dungeons.entity.projectile.Projectile;
 import com.kdi.dungeons.entity.projectile.WizardProjectile;
+import com.kdi.dungeons.graphics.AnimatedSprite;
 import com.kdi.dungeons.graphics.Screen;
 import com.kdi.dungeons.graphics.Sprite;
+import com.kdi.dungeons.graphics.SpriteSheet;
 import com.kdi.dungeons.input.KeyInput;
 import com.kdi.dungeons.input.Mouse;
 
@@ -16,6 +18,12 @@ public class Player extends Mob {
 	private Sprite sprite;
 	private int anim = 0;
 	private boolean walking = false;
+	AnimatedSprite down = new AnimatedSprite(32, 32, 3, SpriteSheet.playerDown);
+	AnimatedSprite up = new AnimatedSprite(32, 32, 3, SpriteSheet.playerUp);
+	AnimatedSprite left = new AnimatedSprite(32, 32, 3, SpriteSheet.playerLeft);
+	AnimatedSprite right = new AnimatedSprite(32, 32, 3, SpriteSheet.playerRight);
+
+	AnimatedSprite currentAnimaton = down;
 
 	private int fireRate = 0;
 
@@ -40,6 +48,11 @@ public class Player extends Mob {
 
 	@Override
 	public void update() {
+		if (walking)
+			currentAnimaton.update();
+		else
+			currentAnimaton.setFrame(0);
+
 		if (fireRate > 0) fireRate--;
 
 		int xm = 0, ym = 0; // The direction to move 
@@ -50,10 +63,21 @@ public class Player extends Mob {
 		else
 			anim = 0;
 
-		if (input.up) ym--; // Sets direction to -1
-		if (input.down) ym++; // Sets direction to 1
-		if (input.left) xm--; // Sets direction to -1
-		if (input.right) xm++; // Sets direction to 1
+		if (input.up) {
+			ym--; // Sets direction to -1
+			currentAnimaton = up;
+		} else if (input.down) {
+			ym++; // Sets direction to 1
+			currentAnimaton = down;
+		}
+
+		if (input.left) {
+			xm--; // Sets direction to -1
+			currentAnimaton = left;
+		} else if (input.right) {
+			xm++; // Sets direction to 1
+			currentAnimaton = right;
+		}
 
 		if (xm != 0 || ym != 0) {
 			move(xm, ym);
@@ -87,50 +111,7 @@ public class Player extends Mob {
 
 	@Override
 	public void render(Screen screen) {
-		// Sets the player sprite direction
-		int flip = 0;
-		if (direction == DIRECTION_UP) {
-			sprite = Sprite.playerUp;
-			if (walking) {
-				if (anim % 20 > 10) {
-					sprite = Sprite.playerUp1;
-				} else {
-					sprite = Sprite.playerUp2;
-				}
-			}
-		}
-		if (direction == DIRECTION_DOWN) {
-			sprite = Sprite.playerDown;
-			if (walking) {
-				if (anim % 20 > 10) {
-					sprite = Sprite.playerDown1;
-				} else {
-					sprite = Sprite.playerDown2;
-				}
-			}
-		}
-		if (direction == DIRECTION_LEFT) {
-			sprite = Sprite.playerSide;
-			if (walking) {
-				if (anim % 20 > 10) {
-					sprite = Sprite.playerSide1;
-				} else {
-					sprite = Sprite.playerSide2;
-				}
-			}
-		}
-		if (direction == DIRECTION_RIGHT) {
-			flip = 1;
-			sprite = Sprite.playerSide;
-			if (walking) {
-				if (anim % 20 > 10) {
-					sprite = Sprite.playerSide1;
-				} else {
-					sprite = Sprite.playerSide2;
-				}
-			}
-		}
-
-		screen.renderPlayer(x - 16, y - 16, sprite, flip);
+		sprite = currentAnimaton.getSprite();
+		screen.renderPlayer(x - 16, y - 16, sprite, 0);
 	}
 }
