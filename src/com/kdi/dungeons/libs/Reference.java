@@ -21,5 +21,19 @@ public class Reference {
 	public static final int COLOR_BLOCK_BLUE = 0xff0000ff;
 	public static final int COLOR_BLOCK_YELLOW = 0xff0000dc;
 	public static final int COLOR_BLOCK_GRAY = 0xff0000b4;
+	
+	// new tile colors
+	public static final int COLOR_WATER = 0xff0000ff;
+	public static final int COLOR_GRASS_WATER_TOP_LEFT = 0xff00eb14;
+	public static final int COLOR_GRASS_WATER_TOP_RIGHT = 0xff00d728;
+	public static final int COLOR_GRASS_WATER_TOP = 0xff00e11e;
+	public static final int COLOR_GRASS_WATER_RIGHT = 0xff00cd32;
+	public static final int COLOR_GRASS_WATER_LEFT = 0xff00c33c;
+	public static final int COLOR_GRASS_WATER_BOTTOM = 0xff00b946;
+	public static final int COLOR_GRASS_WATER_BOTTOM_RIGHT = 0xff00af50;
+	public static final int COLOR_GRASS_CORNER_TOP_LEFT = 0xff00b946;
+	public static final int COLOR_GRASS_CORNER_TOP_RIGHT = 0xff00b946; // TODO
+	public static final int COLOR_GRASS_CORNER_BUTTOM_LEFT = 0xff00b946; // TODO
+	public static final int COLOR_GRASS_CORNER_BUTTOM_RIGHT = 0xff00af46;
 
 }
