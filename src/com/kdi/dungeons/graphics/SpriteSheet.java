@@ -8,17 +8,26 @@ import javax.imageio.ImageIO;
 public class SpriteSheet {
 
 	private String path;
+	private int width, height; // Size of the spritesheet not the sprite
 
-	public final int SIZE; // Size of the spritesheet not the sprite
 	public int[] pixels;
 
-	public static SpriteSheet tiles = new SpriteSheet("/textures/spritesheet.png", 256);
+	public static SpriteSheet tiles = new SpriteSheet("/textures/spritesheet.png", 256, 256);
 
-	public SpriteSheet(String path, int size) {
+	public SpriteSheet(String path, int width, int height) {
 		this.path = path;
-		SIZE = size;
-		pixels = new int[SIZE * SIZE];
+		this.width = width;
+		this.height = height;
+		pixels = new int[width * height];
 		load();
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public int getHeight() {
+		return height;
 	}
 
 	private void load() {

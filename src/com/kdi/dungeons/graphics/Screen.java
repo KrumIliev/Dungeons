@@ -49,15 +49,15 @@ public class Screen {
 	public void renderTile(int xPixel, int yPixel, Sprite sprite) {
 		xPixel -= xOffset; // Adjusting the x position with the offset
 		yPixel -= yOffset; // Adjusting the y position with the offset
-		for (int y = 0; y < sprite.SIZE; y++) {
+		for (int y = 0; y < sprite.getHeight(); y++) {
 			int yAbsolute = y + yPixel;
-			for (int x = 0; x < sprite.SIZE; x++) {
+			for (int x = 0; x < sprite.getWidth(); x++) {
 				int xAbsolute = x + xPixel;
-				if (xAbsolute < -sprite.SIZE || xAbsolute >= width || yAbsolute < 0 || yAbsolute >= height) break;
+				if (xAbsolute < -sprite.getWidth() || xAbsolute >= width || yAbsolute < 0 || yAbsolute >= height) break;
 				if (xAbsolute < 0) xAbsolute = 0;
 
 				// Renders all colors without 0xFFFF00FF /pink/ 
-				int color = sprite.pixels[x + y * sprite.SIZE];
+				int color = sprite.pixels[x + y * sprite.getWidth()];
 				if (color != Reference.COLOR_TRANSPARENCY) pixels[xAbsolute + yAbsolute * width] = color;
 			}
 		}

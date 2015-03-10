@@ -5,11 +5,10 @@ public class Sprite {
 	private int x, y;
 	private SpriteSheet sheet;
 
-	public final int SIZE; // TODO remove 
 	private int width, height;
 	public int[] pixels;
 
-	public static Sprite voidSprite = new Sprite(16, 0x007ae1);
+	public static Sprite voidSprite = new Sprite(16, 16, 0x007ae1);
 
 	/**
 	 * Level sprites
@@ -54,15 +53,14 @@ public class Sprite {
 	/**
 	 * Particle sprites
 	 */
-	public static Sprite particleNormal = new Sprite(3, 0xAAAAAA); //TODO change color
+	public static Sprite particleNormal = new Sprite(3, 3, 0xAAAAAA); //TODO change color
 
 	public Sprite(int size, int x, int y, SpriteSheet sheet) {
-		SIZE = size;
 		this.width = size;
 		this.height = size;
-		pixels = new int[SIZE * SIZE];
-		this.x = x * SIZE;
-		this.y = y * SIZE;
+		pixels = new int[size * size];
+		this.x = x * size;
+		this.y = y * size;
 		this.sheet = sheet;
 		load();
 	}
@@ -70,16 +68,7 @@ public class Sprite {
 	public Sprite(int width, int height, int color) {
 		this.width = width;
 		this.height = height;
-		SIZE = -1; // TODO check implementation
 		pixels = new int[width * height];
-		setColor(color);
-	}
-
-	public Sprite(int size, int color) {
-		SIZE = size;
-		this.width = size;
-		this.height = size;
-		pixels = new int[SIZE * SIZE];
 		setColor(color);
 	}
 
@@ -98,9 +87,9 @@ public class Sprite {
 	}
 
 	private void load() {
-		for (int y = 0; y < SIZE; y++) {
-			for (int x = 0; x < SIZE; x++) {
-				pixels[x + y * SIZE] = sheet.pixels[(x + this.x) + (y + this.y) * sheet.SIZE];
+		for (int y = 0; y < height; y++) {
+			for (int x = 0; x < width; x++) {
+				pixels[x + y * width] = sheet.pixels[(x + this.x) + (y + this.y) * sheet.getWidth()];
 			}
 		}
 	}
