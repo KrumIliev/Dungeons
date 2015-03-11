@@ -23,7 +23,7 @@ public class Game extends Canvas implements Runnable {
 
 	private static final long serialVersionUID = 1L;
 
-	private static int width = 512;
+	private static int width = 256;
 	private static int height = width / 4 * 3;
 	private static int scale = 2;
 
@@ -147,7 +147,7 @@ public class Game extends Canvas implements Runnable {
 		graphics.setColor(Color.WHITE);
 		graphics.setFont(new Font("Verdana", 0, 50));
 		graphics.fillRect(Mouse.getX() - 10, Mouse.getY() - 10, 20, 20);
-		graphics.drawString("Button: " + Mouse.getB(), 80, 80);
+		//graphics.drawString("Button: " + Mouse.getB(), 80, 80);
 
 		// <--------------------------------------------------------------------------
 

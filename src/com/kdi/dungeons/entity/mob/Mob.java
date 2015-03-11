@@ -7,14 +7,12 @@ import com.kdi.dungeons.graphics.Sprite;
 
 public abstract class Mob extends Entity {
 
+	protected enum Direction {
+		UP, DOWN, LEFT, RIGHT;
+	}
+
 	protected Sprite sprite;
-
-	protected final int DIRECTION_UP = 0;
-	protected final int DIRECTION_RIGHT = 1;
-	protected final int DIRECTION_LEFT = 2;
-	protected final int DIRECTION_DOWN = 3;
-	protected int direction = DIRECTION_UP;
-
+	protected Direction direction = Direction.UP;
 	protected boolean moving = false; // Is the mob moving at that moment
 
 	/**
@@ -36,10 +34,10 @@ public abstract class Mob extends Entity {
 		/**
 		 * Sets the direction
 		 */
-		if (xm > 0) direction = DIRECTION_RIGHT;
-		if (xm < 0) direction = DIRECTION_LEFT;
-		if (ym > 0) direction = DIRECTION_DOWN;
-		if (ym < 0) direction = DIRECTION_UP;
+		if (xm > 0) direction = Direction.RIGHT;
+		if (xm < 0) direction = Direction.LEFT;
+		if (ym > 0) direction = Direction.DOWN;
+		if (ym < 0) direction = Direction.UP;
 
 		/**
 		 * Checks for collision and there is no collision move
@@ -53,7 +51,7 @@ public abstract class Mob extends Entity {
 	/**
 	 * Updates the mob information /location etc./
 	 */
-	public void update() {}
+	public abstract void update();
 
 	/**
 	 * Renders the mob on the screen

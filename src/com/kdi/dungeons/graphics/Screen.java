@@ -83,7 +83,7 @@ public class Screen {
 	}
 
 	// TODO remove flip
-	public void renderPlayer(int xPixel, int yPixel, Sprite sprite, int flip) {
+	public void renderMob(int xPixel, int yPixel, Sprite sprite, int flip) {
 		xPixel -= xOffset; // Adjusting the x position with the offset
 		yPixel -= yOffset; // Adjusting the y position with the offset
 		for (int y = 0; y < 32; y++) {

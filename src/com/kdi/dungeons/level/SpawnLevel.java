@@ -5,6 +5,8 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import com.kdi.dungeons.entity.mob.Dummy;
+
 public class SpawnLevel extends Level {
 
 	public SpawnLevel(String path) {
@@ -23,6 +25,7 @@ public class SpawnLevel extends Level {
 			e.printStackTrace();
 			System.out.println("Exception! Could not load level file!");
 		}
+		add(new Dummy(38, 47));
 	}
 
 	@Override

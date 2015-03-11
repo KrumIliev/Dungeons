@@ -5,7 +5,7 @@ import java.util.Random;
 import com.kdi.dungeons.graphics.Screen;
 import com.kdi.dungeons.level.Level;
 
-public abstract class Entity {
+public class Entity {
 
 	public int x, y; // Position
 	private boolean removed = false; // If the entity is removed from the screen 

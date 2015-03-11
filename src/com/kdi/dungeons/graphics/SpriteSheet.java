@@ -13,11 +13,18 @@ public class SpriteSheet {
 	public int[] pixels;
 
 	public static SpriteSheet tiles = new SpriteSheet("/textures/spritesheet.png", 256, 256);
+
 	public static SpriteSheet player = new SpriteSheet("/textures/hero.png", 128, 96);
 	public static SpriteSheet playerDown = new SpriteSheet(player, 0, 0, 1, 3, 32);
 	public static SpriteSheet playerUp = new SpriteSheet(player, 1, 0, 1, 3, 32);
 	public static SpriteSheet playerLeft = new SpriteSheet(player, 3, 0, 1, 3, 32);
 	public static SpriteSheet playerRight = new SpriteSheet(player, 2, 0, 1, 3, 32);
+
+	public static SpriteSheet dummy = new SpriteSheet("/textures/dummy.png", 128, 96);
+	public static SpriteSheet dummyDown = new SpriteSheet(dummy, 2, 0, 1, 3, 32);
+	public static SpriteSheet dummyUp = new SpriteSheet(dummy, 0, 0, 1, 3, 32);
+	public static SpriteSheet dummyLeft = new SpriteSheet(dummy, 3, 0, 1, 3, 32);
+	public static SpriteSheet dummyRight = new SpriteSheet(dummy, 1, 0, 1, 3, 32);
 
 	private Sprite[] sprites;
 

@@ -31,19 +31,10 @@ public class Sprite {
 	public static Sprite bricks = new Sprite(16, 5, 0, SpriteSheet.tiles);
 
 	/**
-	 * Player sprites
+	 * Player and mob default sprites
 	 */
-	public static Sprite playerUp = new Sprite(32, 0, 7, SpriteSheet.tiles);
-	public static Sprite playerUp1 = new Sprite(32, 1, 7, SpriteSheet.tiles);
-	public static Sprite playerUp2 = new Sprite(32, 2, 7, SpriteSheet.tiles);
-
-	public static Sprite playerDown = new Sprite(32, 0, 5, SpriteSheet.tiles);
-	public static Sprite playerDown1 = new Sprite(32, 1, 5, SpriteSheet.tiles);
-	public static Sprite playerDown2 = new Sprite(32, 2, 5, SpriteSheet.tiles);
-
-	public static Sprite playerSide = new Sprite(32, 0, 6, SpriteSheet.tiles);
-	public static Sprite playerSide1 = new Sprite(32, 1, 6, SpriteSheet.tiles);
-	public static Sprite playerSide2 = new Sprite(32, 2, 6, SpriteSheet.tiles);
+	public static Sprite playerDefault = new Sprite(32, 0, 0, SpriteSheet.player);
+	public static Sprite dummyDefault = new Sprite(32, 2, 0, SpriteSheet.dummy);
 
 	/**
 	 * Projectile sprites

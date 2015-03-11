@@ -29,7 +29,7 @@ public class Player extends Mob {
 
 	public Player(KeyInput input) {
 		this.input = input;
-		sprite = Sprite.playerUp; // This is just to be save it is not needed 
+		sprite = Sprite.playerDefault; // This is just to be save it is not needed 
 	}
 
 	/**
@@ -42,7 +42,7 @@ public class Player extends Mob {
 		this.x = x;
 		this.y = y;
 		this.input = input;
-		sprite = Sprite.playerUp; // This is just to be save it is not needed
+		sprite = Sprite.playerDefault; // This is just to be save it is not needed
 		fireRate = WizardProjectile.FIRE_RATE;
 	}
 
@@ -112,6 +112,6 @@ public class Player extends Mob {
 	@Override
 	public void render(Screen screen) {
 		sprite = currentAnimaton.getSprite();
-		screen.renderPlayer(x - 16, y - 16, sprite, 0);
+		screen.renderMob(x - 16, y - 16, sprite, 0);
 	}
 }
