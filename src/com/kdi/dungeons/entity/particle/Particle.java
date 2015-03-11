@@ -6,7 +6,6 @@ import com.kdi.dungeons.graphics.Sprite;
 
 public class Particle extends Entity {
 
-	private Sprite sprite;
 	private int lifeSpan;
 	private int time = 0;
 
@@ -15,12 +14,10 @@ public class Particle extends Entity {
 	protected double xa, ya, za;
 
 	public Particle(int x, int y, int lifeSpan) {
-		this.x = x;
-		this.y = y;
+		super(x, y, Sprite.particleNormal);
 		this.xx = x;
 		this.yy = y;
 		this.lifeSpan = lifeSpan + (random.nextInt(20) - 10);
-		sprite = Sprite.particleNormal;
 
 		this.xa = random.nextGaussian();
 		this.ya = random.nextGaussian();

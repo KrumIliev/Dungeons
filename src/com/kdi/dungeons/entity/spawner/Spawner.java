@@ -12,9 +12,8 @@ public class Spawner extends Entity {
 	private Type type;
 
 	public Spawner(int x, int y, Type type, int amount, Level level) {
+		super(x, y, null);
 		setLevel(level);
-		this.x = x;
-		this.y = y;
 		this.type = type;
 	}
 }

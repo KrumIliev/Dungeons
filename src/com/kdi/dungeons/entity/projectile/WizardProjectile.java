@@ -9,11 +9,10 @@ public class WizardProjectile extends Projectile {
 	public static final int FIRE_RATE = 10; // Higher is slower
 
 	public WizardProjectile(int x, int y, double direction) {
-		super(x, y, direction);
+		super(x, y, direction, Sprite.projectileWizard);
 		range = random.nextInt(100) + 150;
 		speed = 2;
 		damage = 20;
-		sprite = Sprite.projectileWizard;
 
 		// Calculates the x and y steps so the projectile can fly in the desired direction 
 		xNew = speed * Math.cos(angle);

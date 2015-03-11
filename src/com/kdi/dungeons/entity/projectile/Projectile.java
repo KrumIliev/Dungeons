@@ -9,7 +9,6 @@ public abstract class Projectile extends Entity {
 
 	protected final int xOrigin, yOrigin;
 	protected double angle;
-	protected Sprite sprite;
 	protected double x, y;
 	protected double xNew, yNew;
 	protected double distance;
@@ -17,7 +16,9 @@ public abstract class Projectile extends Entity {
 
 	protected final Random random = new Random();
 
-	public Projectile(int x, int y, double direction) {
+	public Projectile(int x, int y, double direction, Sprite sprite) {
+		super(x, y, sprite);
+
 		xOrigin = x;
 		yOrigin = y;
 		angle = direction;

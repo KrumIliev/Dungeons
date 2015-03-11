@@ -27,11 +27,6 @@ public class Player extends Mob {
 
 	private int fireRate = 0;
 
-	public Player(KeyInput input) {
-		this.input = input;
-		sprite = Sprite.playerDefault; // This is just to be save it is not needed 
-	}
-
 	/**
 	 * Constructor with player specific start location
 	 * 
@@ -39,10 +34,8 @@ public class Player extends Mob {
 	 * @param y The y coordinate
 	 */
 	public Player(int x, int y, KeyInput input) {
-		this.x = x;
-		this.y = y;
+		super(x, y, Sprite.playerDefault);
 		this.input = input;
-		sprite = Sprite.playerDefault; // This is just to be save it is not needed
 		fireRate = WizardProjectile.FIRE_RATE;
 	}
 

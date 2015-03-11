@@ -5,7 +5,7 @@ import com.kdi.dungeons.graphics.Screen;
 import com.kdi.dungeons.graphics.Sprite;
 import com.kdi.dungeons.graphics.SpriteSheet;
 
-public class Dummy extends Mob {
+public class Chaser extends Mob {
 
 	AnimatedSprite down = new AnimatedSprite(32, 32, 3, SpriteSheet.dummyDown);
 	AnimatedSprite up = new AnimatedSprite(32, 32, 3, SpriteSheet.dummyUp);
@@ -18,23 +18,14 @@ public class Dummy extends Mob {
 	private int xm = 0; // The x direction to move 
 	private int ym = 0; // The y direction to move 
 
-	public Dummy(int x, int y) {
+	public Chaser(int x, int y) {
 		super(x << 4, y << 4, Sprite.dummyDefault);
 	}
 
 	@Override
 	public void update() {
-		time++;
 
-		// Random movement AI 
-		if (time % (random.nextInt(50) + 30) == 0) { // one/second
-			xm = random.nextInt(3) - 1;
-			ym = random.nextInt(3) - 1;
-			if (random.nextInt(3) == 0) {
-				xm = 0;
-				ym = 0;
-			}
-		}
+		time++;
 
 		if (walking)
 			currentAnimaton.update();
@@ -63,11 +54,11 @@ public class Dummy extends Mob {
 		} else {
 			walking = false;
 		}
+
 	}
 
 	@Override
 	public void render(Screen screen) {
-		sprite = currentAnimaton.getSprite();
 		screen.renderMob(x, y, sprite, 0);
 	}
 

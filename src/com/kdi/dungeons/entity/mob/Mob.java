@@ -7,11 +7,15 @@ import com.kdi.dungeons.graphics.Sprite;
 
 public abstract class Mob extends Entity {
 
+	public Mob(int x, int y, Sprite sprite) {
+		super(x, y, sprite);
+	}
+
 	protected enum Direction {
 		UP, DOWN, LEFT, RIGHT;
 	}
 
-	protected Sprite sprite;
+	
 	protected Direction direction = Direction.UP;
 	protected boolean moving = false; // Is the mob moving at that moment
 
@@ -52,11 +56,6 @@ public abstract class Mob extends Entity {
 	 * Updates the mob information /location etc./
 	 */
 	public abstract void update();
-
-	/**
-	 * Renders the mob on the screen
-	 */
-	public void render() {}
 
 	/**
 	 * Checks for collision

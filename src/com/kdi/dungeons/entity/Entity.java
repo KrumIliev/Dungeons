@@ -3,15 +3,23 @@ package com.kdi.dungeons.entity;
 import java.util.Random;
 
 import com.kdi.dungeons.graphics.Screen;
+import com.kdi.dungeons.graphics.Sprite;
 import com.kdi.dungeons.level.Level;
 
-public class Entity {
+public abstract class Entity {
 
-	public int x, y; // Position
+	protected int x, y; // Position
 	private boolean removed = false; // If the entity is removed from the screen 
+	protected Sprite sprite;
 
 	protected Level level; // The level the entity resides in
 	protected Random random = new Random(); // TODO Used for AI 
+
+	public Entity(int x, int y, Sprite sprite) {
+		this.x = x;
+		this.y = y;
+		this.sprite = sprite;
+	}
 
 	public void update() {}
 
@@ -38,6 +46,18 @@ public class Entity {
 
 	public void setLevel(Level level) {
 		this.level = level;
+	}
+
+	public Sprite getSprite() {
+		return sprite;
+	}
+
+	public int getX() {
+		return x;
+	}
+
+	public int getY() {
+		return y;
 	}
 
 }
