@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import com.kdi.dungeons.entity.mob.Chaser;
 import com.kdi.dungeons.entity.mob.Dummy;
 
 public class SpawnLevel extends Level {
@@ -25,7 +26,8 @@ public class SpawnLevel extends Level {
 			e.printStackTrace();
 			System.out.println("Exception! Could not load level file!");
 		}
-		add(new Dummy(38, 47));
+		add(new Chaser(41, 44));
+		add(new Dummy(40, 45));
 	}
 
 	@Override

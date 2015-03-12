@@ -15,7 +15,6 @@ public abstract class Mob extends Entity {
 		UP, DOWN, LEFT, RIGHT;
 	}
 
-	
 	protected Direction direction = Direction.UP;
 	protected boolean moving = false; // Is the mob moving at that moment
 
@@ -25,7 +24,7 @@ public abstract class Mob extends Entity {
 	 * @param xm -1 move left, 0 do nothing, 1 move right
 	 * @param ym -1 move up, 0 do nothing, 1 move down
 	 */
-	public void move(int xm, int ym) {
+	public void move(double xm, double ym) {
 		/**
 		 * Separates the x and y movements so the player can slide on the walls
 		 */
@@ -46,10 +45,18 @@ public abstract class Mob extends Entity {
 		/**
 		 * Checks for collision and there is no collision move
 		 */
-		if (!collision(xm, ym)) {
-			x += xm;
-			y += ym;
+
+		for (int x = 0; x < Math.abs(xm); x++) {
+			if (!collision(abs(xm), ym)) this.x += abs(xm);
 		}
+		for (int y = 0; y < Math.abs(ym); y++) {
+			if (!collision(xm, abs(ym))) this.y += abs(ym);
+		}
+	}
+
+	private int abs(double value) {
+		if (value < 0) return -1;
+		return 1;
 	}
 
 	/**
@@ -60,12 +67,16 @@ public abstract class Mob extends Entity {
 	/**
 	 * Checks for collision
 	 */
-	private boolean collision(int xm, int ym) {
+	private boolean collision(double xm, double ym) {
 		boolean collision = false;
 		for (int c = 0; c < 4; c++) {
-			int xt = ((x + xm) + c % 2 * 12 - 7) / 16;
-			int yt = ((y + ym) + c / 2 * 15 - 1) / 16;
-			if (level.getTile(xt, yt).solid()) collision = true;
+			double xt = ((x + xm) - c % 2 * 16) / 16;
+			double yt = ((y + ym) - c / 2 * 16) / 16;
+			int ix = (int) Math.ceil(xt); // checking the right side
+			int iy = (int) Math.ceil(yt); // checking the top side
+			if (c % 2 == 0) ix = (int) Math.floor(xt); // checking the left side
+			if (c / 2 == 0) iy = (int) Math.floor(yt); // checking down side
+			if (level.getTile(ix, iy).solid()) collision = true;
 		}
 
 		return collision;

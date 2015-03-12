@@ -16,7 +16,6 @@ public class Player extends Mob {
 
 	private KeyInput input;
 	private Sprite sprite;
-	private int anim = 0;
 	private boolean walking = false;
 	AnimatedSprite down = new AnimatedSprite(32, 32, 3, SpriteSheet.playerDown);
 	AnimatedSprite up = new AnimatedSprite(32, 32, 3, SpriteSheet.playerUp);
@@ -49,12 +48,6 @@ public class Player extends Mob {
 		if (fireRate > 0) fireRate--;
 
 		int xm = 0, ym = 0; // The direction to move 
-
-		// Prevents exception with integer if someone leaves the game running for long period of time /over night or something/
-		if (anim < 7500)
-			anim++;
-		else
-			anim = 0;
 
 		if (input.up) {
 			ym--; // Sets direction to -1

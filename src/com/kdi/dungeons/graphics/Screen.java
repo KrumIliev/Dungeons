@@ -2,6 +2,8 @@ package com.kdi.dungeons.graphics;
 
 import java.util.Random;
 
+import com.kdi.dungeons.entity.mob.Chaser;
+import com.kdi.dungeons.entity.mob.Mob;
 import com.kdi.dungeons.libs.Reference;
 
 public class Screen {
@@ -107,6 +109,29 @@ public class Screen {
 
 				// Renders all colors without 0xFFFF00FF /pink/ 
 				int color = sprite.pixels[xs + ys * 32];
+				if (color != Reference.COLOR_TRANSPARENCY) pixels[xAbsolute + yAbsolute * width] = color;
+
+			}
+		}
+	}
+
+	public void renderMob(int xPixel, int yPixel, Mob mob) {
+		xPixel -= xOffset; // Adjusting the x position with the offset
+		yPixel -= yOffset; // Adjusting the y position with the offset
+		for (int y = 0; y < 32; y++) {
+			int yAbsolute = y + yPixel;
+			int ys = y;
+
+			for (int x = 0; x < 32; x++) {
+				int xAbsolute = x + xPixel;
+				int xs = x;
+
+				if (xAbsolute < -32 || xAbsolute >= width || yAbsolute < 0 || yAbsolute >= height) break;
+				if (xAbsolute < 0) xAbsolute = 0;
+
+				// Renders all colors without 0xFFFF00FF /pink/ 
+				int color = mob.getSprite().pixels[xs + ys * 32];
+				if (mob instanceof Chaser && color == 0xff472bbf) color = 0xffbf2b2b;
 				if (color != Reference.COLOR_TRANSPARENCY) pixels[xAbsolute + yAbsolute * width] = color;
 
 			}

@@ -1,5 +1,7 @@
 package com.kdi.dungeons.entity.mob;
 
+import java.util.List;
+
 import com.kdi.dungeons.graphics.AnimatedSprite;
 import com.kdi.dungeons.graphics.Screen;
 import com.kdi.dungeons.graphics.Sprite;
@@ -14,7 +16,6 @@ public class Chaser extends Mob {
 	AnimatedSprite currentAnimaton = down;
 	private boolean walking = false;
 
-	private int time = 0;
 	private int xm = 0; // The x direction to move 
 	private int ym = 0; // The y direction to move 
 
@@ -22,10 +23,32 @@ public class Chaser extends Mob {
 		super(x << 4, y << 4, Sprite.dummyDefault);
 	}
 
+	private void move() {
+		xm = 0;
+		ym = 0;
+
+		List<Player> players = level.getPlayersInRadius(this, 50);
+		
+		if (players.size() > 0) {
+			Player player = players.get(0);
+
+			if (x < player.getX()) xm++;
+			if (x > player.getX()) xm--;
+			if (y < player.getY()) ym++;
+			if (y > player.getY()) ym--;
+		}
+
+		if (xm != 0 || ym != 0) {
+			move(xm, ym);
+			walking = true;
+		} else {
+			walking = false;
+		}
+	}
+
 	@Override
 	public void update() {
-
-		time++;
+		move();
 
 		if (walking)
 			currentAnimaton.update();
@@ -47,19 +70,12 @@ public class Chaser extends Mob {
 			direction = Direction.RIGHT;
 			currentAnimaton = right;
 		}
-
-		if (xm != 0 || ym != 0) {
-			move(xm, ym);
-			walking = true;
-		} else {
-			walking = false;
-		}
-
 	}
 
 	@Override
 	public void render(Screen screen) {
-		screen.renderMob(x, y, sprite, 0);
+		sprite = currentAnimaton.getSprite();
+		screen.renderMob(x - 16, y - 16, this);
 	}
 
 }

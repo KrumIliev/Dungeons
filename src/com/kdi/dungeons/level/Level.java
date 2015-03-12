@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.kdi.dungeons.entity.Entity;
+import com.kdi.dungeons.entity.mob.Player;
 import com.kdi.dungeons.entity.particle.Particle;
 import com.kdi.dungeons.entity.projectile.Projectile;
 import com.kdi.dungeons.graphics.Screen;
@@ -19,6 +20,7 @@ public class Level {
 	private List<Entity> entities = new ArrayList<Entity>();
 	private List<Projectile> projectiles = new ArrayList<Projectile>();
 	private List<Particle> particles = new ArrayList<Particle>();
+	private List<Player> players = new ArrayList<Player>();
 
 	/**
 	 * Random level constructor
@@ -59,6 +61,8 @@ public class Level {
 			projectiles.get(i).update();
 		for (int i = 0; i < particles.size(); i++)
 			particles.get(i).update();
+		for (int i = 0; i < players.size(); i++)
+			players.get(i).update();
 		remove();
 	}
 
@@ -69,6 +73,8 @@ public class Level {
 			if (projectiles.get(i).isRemoved()) projectiles.remove(i);
 		for (int i = 0; i < particles.size(); i++)
 			if (particles.get(i).isRemoved()) particles.remove(i);
+		for (int i = 0; i < players.size(); i++)
+			if (players.get(i).isRemoved()) players.remove(i);
 	}
 
 	/**
@@ -99,6 +105,8 @@ public class Level {
 			projectiles.get(i).render(screen);
 		for (int i = 0; i < particles.size(); i++)
 			particles.get(i).render(screen);
+		for (int i = 0; i < players.size(); i++)
+			players.get(i).render(screen);
 	}
 
 	public void add(Entity entity) {
@@ -109,6 +117,9 @@ public class Level {
 
 		} else if (entity instanceof Projectile) {
 			projectiles.add((Projectile) entity);
+
+		} else if (entity instanceof Player) {
+			players.add((Player) entity);
 
 		} else {
 			entities.add(entity);
@@ -131,6 +142,64 @@ public class Level {
 		}
 
 		return collision;
+	}
+
+	public List<Player> getPlayers() {
+		return players;
+	}
+
+	/**
+	 * TODO for multiplayer
+	 * 
+	 * @return player at specific index in the players list
+	 */
+	public Player getPlayerAt(int index) {
+		return players.get(index);
+	}
+
+	/**
+	 * @return The player that you are currently playing with
+	 */
+	public Player getClientPlayer() {
+		return players.get(0);
+	}
+
+	/**
+	 * @param entity to search around
+	 * @param search distance from entity
+	 * 
+	 * @return List of entities in specific radius around specific entity
+	 */
+	public List<Entity> getEnitiesInRadius(Entity entity, int radius) {
+		List<Entity> result = new ArrayList<Entity>();
+
+		for (Entity e : entities) {
+			int distanceX = Math.abs(e.getX() - entity.getX());
+			int distanceY = Math.abs(e.getY() - entity.getY());
+
+			double distance = Math.sqrt((distanceX * distanceX) + (distanceY * distanceY));
+			if (distance <= radius) {
+				result.add(e);
+			}
+		}
+
+		return result;
+	}
+
+	public List<Player> getPlayersInRadius(Entity entity, int radius) {
+		List<Player> result = new ArrayList<Player>();
+
+		for (Player p : players) {
+			int distanceX = Math.abs(p.getX() - entity.getX());
+			int distanceY = Math.abs(p.getY() - entity.getY());
+
+			double distance = Math.sqrt((distanceX * distanceX) + (distanceY * distanceY));
+			if (distance <= radius) {
+				result.add(p);
+			}
+		}
+
+		return result;
 	}
 
 	/**
